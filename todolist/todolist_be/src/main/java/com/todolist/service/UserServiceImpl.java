@@ -54,6 +54,11 @@ public class UserServiceImpl implements UserService {
         return ResponseEntity.ok("회원가입 성공");
     }
 
+    @Override
+    public boolean isUserIdDuplicate(String userId) {
+        return userRepository.existsById(userId);
+    }
+
 
     @Override
     public ResponseEntity<?> signin(SigninRequest request) {

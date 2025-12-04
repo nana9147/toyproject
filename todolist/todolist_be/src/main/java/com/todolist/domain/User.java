@@ -25,7 +25,7 @@ public class User {
     @Column(length = 30, nullable = false, unique = true)
     private String id;      //사용자 id
 
-    @Column(length = 20, nullable = false)
+    @Column(length = 255, nullable = false)
     private String pw;      //사용자 pw
 
     @Column(length = 30, nullable = false)
@@ -45,6 +45,7 @@ public class User {
     @Column(nullable=false)
     private LocalDateTime  updated_at;       //수정일
 
-    @Column(length = 20, columnDefinition = "VARCHAR(20) DEFAULT 'ACTIVE'")
-    private String status;
+    @Builder.Default
+    @Column(length = 20, nullable = false)
+    private String status = "ACTIVE";
 }
