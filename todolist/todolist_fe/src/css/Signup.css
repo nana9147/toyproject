@@ -78,8 +78,14 @@
 
 .form-error-text {
   font-size: 0.75rem;
-  color: #f97373;
+  color: #f97373; /* 기본: 에러 */
 }
+
+.form-error-text.success {
+  color: #16a34a; /* 사용 가능한 아이디 */
+}
+
+
 
 /* ===== 인풋 공통 스타일 ===== */
 
@@ -129,20 +135,6 @@
   background: #f7c98b;
 }
 
-.id-check-msg {
-  margin-top: 4px;
-  font-size: 12px;
-}
-
-.id-check-msg.success {
-  color: #16a34a; 
-}
-
-.id-check-msg.error {
-  color: #dc2626; 
-}
-
-
 
 /* ===== 이메일 ===== */
 
@@ -179,10 +171,11 @@
 .phone-row {
   display: flex;
   align-items: center;
+  gap: 0.4rem;
 }
 
 .phone-input {
-  width: 4.5rem;
+  width: 5rem;
   text-align: center;
 }
 
@@ -196,12 +189,13 @@
 .terms-col {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 2rem;
 }
 
 .form-checkbox-group {
   display: flex;
-  align-items: center;
+  align-items:center;
   gap: 0.4rem;
 }
 
@@ -257,7 +251,7 @@
 
   .terms-col {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-end;
     gap: 0.7rem;
   }
 
