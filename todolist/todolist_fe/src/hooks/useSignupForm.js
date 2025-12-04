@@ -8,6 +8,11 @@ export function useSignupForm(onValidSubmit) {
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
   const [emailId, setEmailId] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [phone1, setPhone1] = useState("");
+  const [phone2, setPhone2] = useState("");
+  const [phone3, setPhone3] = useState("");
 
   const [errors, setErrors] = useState({
     userId: "",
@@ -198,6 +203,8 @@ export function useSignupForm(onValidSubmit) {
       userId,
       password,
       email: `${emailId}@${domain}`,
+      name,
+      phone: `${phone1}-${phone2}-${phone3}`,
     };
 
     if (onValidSubmit) {
@@ -215,6 +222,14 @@ export function useSignupForm(onValidSubmit) {
     setPasswordConfirm,
     emailId,
     setEmailId,
+    name,
+    setName,
+    phone1,
+    setPhone1,
+    phone2,
+    setPhone2,
+    phone3,
+    setPhone3,
     domain,
     setDomain,
     isCustom,

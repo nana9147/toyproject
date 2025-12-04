@@ -16,6 +16,14 @@ export default function Signup() {
     setPasswordConfirm,
     emailId,
     setEmailId,
+    name,
+    setName,
+    phone1,
+    setPhone1,
+    phone2,
+    setPhone2,
+    phone3,
+    setPhone3,
     domain,
     setDomain,
     isCustom,
@@ -27,10 +35,33 @@ export default function Signup() {
     isIdAvailable,
     isCheckingId,
     checkUserIdDuplicate,
-  } = useSignupForm(() => {
-    // 유효성 통과 후 실행되는 콜백
-    alert("회원가입 완료");
-    navigate("/signin");
+  } = useSignupForm(async (payload) => {
+    try {
+      const response = await fetch("http://localhost:8080/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: payload.userId,
+          pw: payload.password,
+          email: payload.email,
+          name: payload.name,
+          phone: payload.phone,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorMsg = await response.text();
+        alert(errorMsg);
+        return;
+      }
+
+      const msg = await response.text("회원가입이 완료");
+      alert(msg);
+
+      navigate("/signin");
+    } catch (err) {
+      alert("서버 통신 중 오류가 발생했습니다.");
+    }
   });
 
   /* 이전페이지로 이동 */
@@ -100,6 +131,8 @@ export default function Signup() {
               className="form-input"
               type="text"
               placeholder="이름을 입력하세요"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
           </div>
@@ -197,41 +230,42 @@ export default function Signup() {
 
         {/* 전화번호 */}
         <div className="form-col">
-          <div className="form-row">
-            <div className="form-label-row">
-              <span className="form-label">전화번호</span>
-            </div>
-            <div className="phone-row">
-              <input
-                className="form-input phone-input"
-                type="text"
-                maxLength="3"
-                onChange={(e) => {
-                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                }}
-                required
-              />
-              <span className="phone-dash">-</span>
-              <input
-                className="form-input phone-input"
-                type="text"
-                maxLength="4"
-                onChange={(e) => {
-                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                }}
-                required
-              />
-              <span className="phone-dash">-</span>
-              <input
-                className="form-input phone-input"
-                type="text"
-                maxLength="4"
-                onChange={(e) => {
-                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
-                }}
-                required
-              />
-            </div>
+          <div className="phone-row">
+            <input
+              className="form-input phone-input"
+              type="text"
+              maxLength="3"
+              value={phone1}
+              onChange={(e) => {
+                const onlyNum = e.target.value.replace(/[^0-9]/g, "");
+                setPhone1(onlyNum);
+              }}
+              required
+            />
+            <span className="phone-dash">-</span>
+            <input
+              className="form-input phone-input"
+              type="text"
+              maxLength="4"
+              value={phone2}
+              onChange={(e) => {
+                const onlyNum = e.target.value.replace(/[^0-9]/g, "");
+                setPhone2(onlyNum);
+              }}
+              required
+            />
+            <span className="phone-dash">-</span>
+            <input
+              className="form-input phone-input"
+              type="text"
+              maxLength="4"
+              value={phone3}
+              onChange={(e) => {
+                const onlyNum = e.target.value.replace(/[^0-9]/g, "");
+                setPhone3(onlyNum);
+              }}
+              required
+            />
           </div>
         </div>
 
